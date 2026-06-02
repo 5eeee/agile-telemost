@@ -1,0 +1,72 @@
+# livekit.yaml - конфигурация LiveKit SFU сервера для Agile.Telemost
+# Подробнее: https://docs.livekit.io/reference/server/config
+
+# Режим логгирования (debug, info, warn, error)
+log_level: info
+
+# Настройки портов
+port: 7880  # HTTP и WebSocket порт
+rtc:
+    port_range_start: 50000
+    port_range_end: 60000
+    # Использовать TCP для TURN
+    tcp_port: 7881
+    # Включить ICE UDP
+    udp_port: 7882
+
+# Ключи API (должны совпадать с config.php)
+keys:
+    "your-livekit-api-key": "your-livekit-api-secret"
+
+# Регион (для multi-region)
+region: eu-central
+
+# Настройки записи (Recording)
+recording:
+    # Выходная директория для записей (должна быть доступна для записи)
+    output_directory: /var/lib/livekit/recordings
+    # Формат файла записи
+    file_output:
+        enabled: true
+        format: mkv
+    # Сегментация (например, каждые 1 час)
+    segment_duration: 1h
+
+# Встроенный TURN сервер (для обхода NAT)
+turn:
+    enabled: true
+    domain: turn.example.com
+    # TLS сертификат (опционально)
+    cert_file: /etc/letsencrypt/live/turn.example.com/fullchain.pem
+    key_file: /etc/letsencrypt/live/turn.example.com/privkey.pem
+
+# Интеграция с Redis для сигналинга (если несколько нод)
+redis:
+    address: localhost:6379
+    password: ""
+    db: 0
+
+# Пределы для комнат
+room:
+    # Максимальное количество участников (по ТЗ до 50)
+    max_participants: 50
+    # Автоматическое удаление пустых комнат через 5 минут
+    empty_timeout: 300
+
+# WebRTC настройки
+webrtc:
+    # Минимальный и максимальный битрейт для видео
+    video:
+        min_bitrate: 100000   # 100 kbps
+        max_bitrate: 2000000  # 2 Mbps
+    # Поддержка симулькаста для адаптивного качества
+    simulcast:
+        enabled: true
+        # Три слоя качества: низкий, средний, высокий
+        quality_preset: 720p30  # стандартный пресет для 720p
+
+# Мониторинг (Prometheus)
+prometheus:
+    enabled: true
+    port: 9090
+    path: /metrics

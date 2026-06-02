@@ -1,0 +1,404 @@
+/* style.css — единый файл стилей Agile.Telemost */
+/* Сброс и базовые настройки */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Roboto, system-ui, -apple-system, sans-serif;
+}
+
+body {
+    background-color: #FFFFFF;
+    color: #1D1D1B;
+    line-height: 1.5;
+    font-size: 16px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Корневой контейнер приложения занимает всю высоту */
+#app {
+    display: flex;
+    flex: 1;
+    min-height: 100vh;
+}
+
+/* ========== Переменные ========== */
+:root {
+    --white: #FFFFFF;
+    --red: #D61016;
+    --dark: #1D1D1B;
+    --gray-light: #F5F5F5;
+    --gray-border: #E0E0E0;
+    --gray-text: #5A5A5A;
+    --shadow: 0 2px 8px rgba(0,0,0,0.05);
+    --radius: 12px;        /* основной радиус скругления */
+    --radius-small: 8px;   /* для маленьких элементов */
+    --sidebar-width: 80px;
+    --header-height: 64px;
+    --transition: 0.2s ease;
+}
+
+/* ========== Левый сайдбар ========== */
+.sidebar {
+    width: var(--sidebar-width);
+    background-color: var(--white);
+    border-right: 1px solid var(--gray-border);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 24px 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    z-index: 100;
+}
+
+.sidebar-top,
+.sidebar-bottom {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 100%;
+    align-items: center;
+}
+
+.sidebar-bottom {
+    margin-top: auto;
+    margin-bottom: 24px;
+}
+
+/* Иконка-кнопка в сайдбаре */
+.sidebar-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background-color: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color var(--transition);
+    position: relative;
+    color: var(--dark);
+    fill: currentColor;
+}
+
+.sidebar-icon svg {
+    width: 28px;
+    height: 28px;
+}
+
+.sidebar-icon:hover {
+    background-color: rgba(214, 16, 22, 0.1); /* красный с прозрачностью */
+    color: var(--red);
+}
+
+/* Всплывающая подсказка (плашка) */
+.sidebar-icon .tooltip {
+    position: absolute;
+    left: 60px;
+    background-color: rgba(29, 29, 27, 0.85);
+    color: white;
+    padding: 6px 12px;
+    border-radius: var(--radius-small);
+    font-size: 14px;
+    font-weight: 500;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateX(-5px);
+    transition: opacity var(--transition, transform var(--transition));
+    box-shadow: var(--shadow);
+    backdrop-filter: blur(4px);
+    border: 1px solid rgba(255,255,255,0.2);
+}
+
+.sidebar-icon:hover .tooltip {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* ========== Основной контент (справа от сайдбара) ========== */
+.main-content {
+    flex: 1;
+    margin-left: var(--sidebar-width);
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* ========== Хедер ========== */
+.header {
+    height: var(--header-height);
+    border-bottom: 1px solid var(--gray-border);
+    background-color: var(--white);
+    display: flex;
+    align-items: center;
+    padding: 0 32px;
+    position: sticky;
+    top: 0;
+    z-index: 50;
+}
+
+.header-logo {
+    height: 40px;
+    width: auto;
+    object-fit: contain;
+}
+
+/* ========== Контейнер страницы ========== */
+.page-container {
+    padding: 32px;
+    flex: 1;
+}
+
+/* ========== Типографика ========== */
+h1, h2, h3 {
+    font-weight: 500;
+    color: var(--dark);
+    margin-bottom: 1rem;
+}
+
+h1 {
+    font-size: 2rem;
+    letter-spacing: -0.02em;
+}
+
+h2 {
+    font-size: 1.5rem;
+}
+
+h3 {
+    font-size: 1.25rem;
+}
+
+/* ========== Кнопки ========== */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 24px;
+    border-radius: var(--radius);
+    font-weight: 500;
+    font-size: 1rem;
+    line-height: 1.5;
+    border: 1px solid transparent;
+    cursor: pointer;
+    transition: background-color 0.15s, box-shadow 0.15s, border-color 0.15s;
+    background-color: var(--white);
+    color: var(--dark);
+    border-color: var(--gray-border);
+}
+
+.btn-primary {
+    background-color: var(--red);
+    color: var(--white);
+    border-color: var(--red);
+}
+
+.btn-primary:hover {
+    background-color: #b00f14;
+    border-color: #b00f14;
+}
+
+.btn-outline {
+    background-color: transparent;
+    border: 1px solid var(--red);
+    color: var(--red);
+}
+
+.btn-outline:hover {
+    background-color: rgba(214, 16, 22, 0.05);
+}
+
+.btn:active {
+    transform: translateY(1px);
+    box-shadow: none;
+}
+
+/* Группа кнопок (для главной) */
+.button-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    align-items: center;
+    margin-bottom: 32px;
+}
+
+/* Поле ввода */
+.input-field {
+    padding: 12px 16px;
+    border-radius: var(--radius);
+    border: 1px solid var(--gray-border);
+    font-size: 1rem;
+    width: 100%;
+    max-width: 400px;
+    background-color: var(--white);
+    transition: border-color 0.15s;
+}
+
+.input-field:focus {
+    outline: none;
+    border-color: var(--red);
+}
+
+/* Карточки (списки конференций и т.п.) */
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 24px;
+    margin-top: 24px;
+}
+
+.card {
+    background-color: var(--white);
+    border-radius: var(--radius);
+    border: 1px solid var(--gray-border);
+    padding: 20px;
+    box-shadow: var(--shadow);
+    transition: box-shadow 0.2s;
+}
+
+.card:hover {
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+}
+
+.card-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: var(--dark);
+}
+
+.card-meta {
+    font-size: 0.9rem;
+    color: var(--gray-text);
+    margin-bottom: 16px;
+}
+
+/* Для списка участников и т.п. */
+.list-item {
+    display: flex;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--gray-border);
+}
+
+.list-item:last-child {
+    border-bottom: none;
+}
+
+/* Аватар (заглушка) */
+.avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: var(--gray-light);
+    margin-right: 12px;
+    flex-shrink: 0;
+}
+
+/* Бейдж направления (отдела) */
+.badge {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 30px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    background-color: var(--gray-light);
+    color: var(--dark);
+    border: 1px solid var(--gray-border);
+}
+
+.badge-red {
+    background-color: var(--red);
+    color: white;
+    border-color: var(--red);
+}
+
+/* Таблицы (для администратора) */
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 24px;
+}
+
+.table th {
+    text-align: left;
+    padding: 16px 12px;
+    background-color: var(--gray-light);
+    font-weight: 600;
+    border-bottom: 2px solid var(--gray-border);
+}
+
+.table td {
+    padding: 16px 12px;
+    border-bottom: 1px solid var(--gray-border);
+}
+
+/* Формы */
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+}
+
+/* Специально для поля ввода ID конференции на главной */
+.join-row {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.join-row .input-field {
+    flex: 1;
+    min-width: 250px;
+}
+
+/* Стили для страницы конференции (комнаты) будут добавлены позже при необходимости */
+/* Но база для чата и кнопок готова */
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .sidebar {
+        width: 60px;
+    }
+    .main-content {
+        margin-left: 60px;
+    }
+    .sidebar-icon {
+        width: 40px;
+        height: 40px;
+    }
+    .sidebar-icon svg {
+        width: 24px;
+        height: 24px;
+    }
+    .page-container {
+        padding: 20px;
+    }
+    .button-group {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .join-row {
+        flex-direction: column;
+        align-items: stretch;
+    }
+}
+
+/* Вспомогательные утилиты */
+.text-center { text-align: center; }
+.mt-4 { margin-top: 24px; }
+.mb-2 { margin-bottom: 12px; }
+.flex { display: flex; }
+.items-center { align-items: center; }
+.gap-2 { gap: 8px; }

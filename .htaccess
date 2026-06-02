@@ -1,0 +1,47 @@
+# .htaccess - правила для Apache (если используется)
+# Обеспечивает маршрутизацию API и защиту директорий
+
+# Включение модуля rewrite
+RewriteEngine On
+
+# Базовый путь (если проект не в корне домена, нужно изменить)
+# RewriteBase /
+
+# Перенаправление всех запросов к /api/ на api.php
+RewriteRule ^api/(.*)$ api.php?action=$1 [QSA,L]
+
+# Для WebSocket прокси (если нужно) - обычно настраивается отдельно в виртуальном хосте
+# Здесь не требуется
+
+# Защита от просмотра директорий
+Options -Indexes
+
+# Запрет доступа к скрытым файлам (.*)
+RewriteRule "(^|/)\." - [F]
+
+# Запрет доступа к конфиденциальным файлам
+<FilesMatch "^(config\.php|database\.php|auth\.php|install\.sql|livekit\.yaml|README\.md|\.htaccess)$">
+    Order Allow,Deny
+    Deny from all
+</FilesMatch>
+
+# Разрешить доступ к статическим файлам (изображения, css, js)
+<FilesMatch "\.(css|js|jpg|jpeg|png|gif|svg|ico|woff|woff2|ttf|eot)$">
+    Order Allow,Deny
+    Allow from all
+</FilesMatch>
+
+# Включаем сжатие для статики
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css text/javascript application/javascript application/json
+</IfModule>
+
+# Кэширование статики
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresByType image/jpg "access plus 1 year"
+    ExpiresByType image/jpeg "access plus 1 year"
+    ExpiresByType image/png "access plus 1 year"
+    ExpiresByType text/css "access plus 1 month"
+    ExpiresByType application/javascript "access plus 1 month"
+</IfModule>
