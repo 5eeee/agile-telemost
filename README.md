@@ -1,6 +1,8 @@
 # Agile.Telemost — сервис видеоконференций
 
-MVP веб-сервиса видеоконференций для бизнеса: комнаты, пользователи, отделы, JWT-авторизация, интеграция с LiveKit SFU.
+> **Полная техническая документация:** [docs/TECHNICAL.md](docs/TECHNICAL.md) · **GitHub:** [github.com/5eeee/agile-telemost](https://github.com/5eeee/agile-telemost)
+
+MVP веб-сервиса видеоконференций для бизнеса
 
 ## Стек
 
